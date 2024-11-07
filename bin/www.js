@@ -4,9 +4,10 @@
  * Module dependencies.
  */
 
-const app = require('../app');
+const app = require('../app'); // app.js
 const debug = require('debug')('sak-node-express-app:server');
-const http = require('http');
+const http = require('node:http');
+const io = require('../realtime/socket-io');
 
 /**
  * Get port from environment and store in Express.
@@ -28,6 +29,9 @@ const server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+// Attaches socket.io to a server or port.
+io.attach(server);
 
 /**
  * Normalize a port into a number, string, or false.

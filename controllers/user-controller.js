@@ -4,8 +4,11 @@ const { Op } = require('sequelize');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 
+const io =require('../realtime/socket-io');
+
 const User = require('../models/user');
 const Blog = require('../models/blog');
+// const { getTotalUserService } = require('../services/user-service');
 // const sequelize = require('../config/db');
 
 exports.index = async (req, res, next) => {
@@ -141,6 +144,10 @@ exports.register = async (req, res, next) => {
             email: email,
             password: hashPassword
         });
+
+        // // ส่งข้อมูลจำนวนผู้ใช้ realtime ไปยัง client
+        // const countUser = await getTotalUserService();
+        // io.emit('user:totalUser', countUser);
 
         return res.status(201).json({
             message: 'ลงทะเบียนสำเร็จ',

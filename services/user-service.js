@@ -10,7 +10,7 @@ async function getUserByPermissionService(permission) {
         where: {
             permission: permission
         }
-    });
+    });    
     return user;
 }
 
